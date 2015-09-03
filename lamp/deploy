@@ -1,0 +1,21 @@
+#!/bin/bash
+
+echo -e "Enter MySQL password"
+read -s mysqlpass
+
+echo -e "Setting up server"
+
+apt-get update
+apt-get install -y apache2
+
+debconf-set-selections <<< "mysql-server mysql-server/root_password password $mysqlpass"
+debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $mysqlpass"
+apt-get install mysql-server
+
+apt-get install -y php5 libapache2-mod-php5 php5-mysql php5-mcrypt php5-gd php5-curl git memcached php5-memcache rsync 
+
+a2enmod rewrite
+a2dissite 000-default
+
+rm -rf /var/www/html
+mkdir /var/www/vhosts
