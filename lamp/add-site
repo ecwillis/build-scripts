@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo -e "Enter root domain (ex. example.com)"
+read sitedomain
+
+echo -e "Setting up vhost for $sitedomain"
+
+touch /etc/apache2/sites-available/$sitedomain.conf
+
+cat > /etc/apache2/sites-available/$sitedomain.conf << EOL
+<VirtualHost *:80>
+  ServerName $sitedomain
+  ServerAlias www.$sitedomain
+  DocumentRoot /var/www/vhosts/$sitedomain
+</VirtualHost>
+EOL
