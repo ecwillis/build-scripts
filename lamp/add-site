@@ -12,5 +12,10 @@ cat > /etc/apache2/sites-available/$sitedomain.conf << EOL
   ServerName $sitedomain
   ServerAlias www.$sitedomain
   DocumentRoot /var/www/vhosts/$sitedomain
+  <Directory /var/www/vhosts/$sitedomain>
+    Options -Indexes
+  </Directory>
 </VirtualHost>
 EOL
+
+mkdir /var/www/vhosts/$sitedomain
